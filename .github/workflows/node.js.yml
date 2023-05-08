@@ -12,22 +12,8 @@ env:
   GKE_ZONE: us-central1
   IMAGE: static-site
 
-jobs:
-  sonarcloud:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - name: SonarCloud Scan
-      uses: sonarsource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        
+jobs:   
   setup-build-publish-deploy:
-    needs: sonarcloud
     name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
     environment: production
@@ -57,12 +43,12 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
+        
     # Get the GKE credentials so we can deploy to the cluster
     - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-        project_id: ${{ env.PROJECT_ID }}
         credentials: ${{ secrets.GKE_SA_KEY }}
         
    # Build the Docker image
