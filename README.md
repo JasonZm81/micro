@@ -1,70 +1,79 @@
-## demo app - developing with Docker
+# pacman
+Pac-Man
 
-This demo app shows a simple user profile app set up using 
-- index.html with pure js and css styles
-- nodejs backend with express module
-- mongodb for data storage
+## Applications Architecture Components
+1. WebApp: NodeJS (boron)
+2. Database: MongoDB (3.4)
 
-All components are docker-based
+## MongoDB setup
+1. Install locally, reference [MongoDB's documentation](https://www.mongodb.com/docs/manual/administration/install-community/)
+2. Install using docker (Install Docker on Ubuntu: https://docs.docker.com/engine/install/ubuntu/)
+```
+docker network create my-net
+docker run --name pacman-mongo-0 --network my-net -p 27017:27017 -d mongo:3.4
+```
 
-### With Docker
+## NodeJS WebApp setup
+### Install dependencies
 
-#### To start the application
+```
+npm install
+```
 
-Step 1: Create docker network
+### Getting started
 
-    docker network create mongo-network 
+```
+npm run start
+```
 
-Step 2: start mongodb 
+### Development
 
-    docker run -d -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodb --net mongo-network mongo    
+```
+npm run dev
+```
 
-Step 3: start mongo-express
-    
-    docker run -d -p 8081:8081 -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password --net mongo-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodb mongo-express   
+### Configurations (WebApp's environment variables)
+1. MongoDB's hostname: MONGO_SERVICE_HOST
+2. MongoDB's port: MY_MONGO_PORT
+3. Other configurations, reference [config.js in this repo](lib/config.js)
 
-_NOTE: creating docker-network in optional. You can start both containers in a default network. In this case, just emit `--net` flag in `docker run` command_
 
-Step 4: open mongo-express from browser
+## Create Application Container Image
 
-    http://localhost:8081
+*This section is for reference only, familiarity with Docker is required
 
-Step 5: create `user-account` _db_ and `users` _collection_ in mongo-express
+### Docker Container Image
 
-Step 6: Start your nodejs application locally - go to `app` directory of project 
+The [Dockerfile](docker/Dockerfile) performs the following steps:
 
-    npm install 
-    node server.js
-    
-Step 7: Access you nodejs application UI from browser
+1. It is based on Node.js LTS Version 6 (Boron).
+1. It then clones the Pac-Man game into the configured application directory.
+1. Exposes port 8080 for the web server.
+1. Starts the Node.js application using `npm start`.
 
-    http://localhost:3000
+To build the image run:
 
-### With Docker Compose
+```
+cd docker
+docker build -t <registry>/<user>/pacman-nodejs-app .
+```
 
-#### To start the application
+You can test the image by running:
 
-Step 1: start mongodb and mongo-express
+```
+docker run -p 8000:8080 <registry>/<user>/pacman-nodejs-app
+```
 
-    docker-compose -f docker-compose.yaml up
-    
-_You can access the mongo-express under localhost:8080 from your browser_
-    
-Step 2: in mongo-express UI - create a new database "my-db"
+And going to `http://localhost:8000/` to see if you get the Pac-Man game.
 
-Step 3: in mongo-express UI - create a new collection "users" in the database "my-db"       
-    
-Step 4: start node server 
+Once you're satisfied you can push the image to the container registry.
 
-    npm install
-    node server.js
-    
-Step 5: access the nodejs application from browser 
+```
+docker push <registry>/<user>/pacman-nodejs-app
+```
 
-    http://localhost:3000
+### Building using an s2i image
 
-#### To build a docker image from the application
-
-    docker build -t my-app:1.0 .       
-    
-The dot "." at the end of the command denotes location of the Dockerfile.
+```
+s2i build . centos/nodejs-6-centos7 pacman
+```
