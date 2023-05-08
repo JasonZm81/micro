@@ -1,5 +1,5 @@
 # pacman
-Pac-Man
+Pac-Man2
 
 ## Applications Architecture Components
 1. WebApp: NodeJS (boron)
