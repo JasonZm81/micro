@@ -52,7 +52,14 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+        credentials_json: '${{ secrets.gcp_credentials }}'
+        
+  #get credentials
+    - id: 'get-credentials'
+      uses: 'google-github-actions/get-gke-credentials@v1'
+      with:
+        cluster_name: 'autopilot-cluster-1'
+        location: 'us-central1'
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
