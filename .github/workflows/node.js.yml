@@ -52,6 +52,7 @@ jobs:
       with:
         cluster_name: 'autopilot-cluster-1'
         location: 'us-central1'
+        project_id: 'logical-flame-386108'
 
     # Get the GKE credentials so we can deploy to the cluster
     #- uses: google-github-actions/get-gke-credentials@v1
