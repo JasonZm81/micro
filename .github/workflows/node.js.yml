@@ -6,7 +6,6 @@ on:
 
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: autopilot-cluster-1
   GKE_ZONE: us-central1
   IMAGE: static-site
