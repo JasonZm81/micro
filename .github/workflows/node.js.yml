@@ -45,7 +45,12 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
-
+        
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+        
     #get credentials
     - id: 'get-credentials'
       uses: 'google-github-actions/get-gke-credentials@v1'
