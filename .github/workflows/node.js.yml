@@ -43,8 +43,15 @@ jobs:
     # helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
+        
     # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@v1
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+    - id: 'get-credentials'
+      uses: google-github-actions/get-gke-credentials@v1
       with:
         cluster_name: 'logical-flame-386108'
         location: 'us-central1'
