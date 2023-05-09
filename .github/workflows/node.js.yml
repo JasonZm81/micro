@@ -47,7 +47,12 @@ jobs:
         node-version: '16.x'
         cache: 'npm'
     - run: npm ci
-
+  
+  # github authorisation
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GKE_SA_KEY }}'
 
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@94337306dda8180d967a56932ceb4ddcf01edae7
