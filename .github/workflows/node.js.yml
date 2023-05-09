@@ -4,12 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-
-env:
-  GKE_CLUSTER: autopilot-cluster-1
-  GKE_ZONE: us-central1
-  IMAGE: static-site
-
 jobs:
   #SonarCloud Scan
   #sonarcloud:
