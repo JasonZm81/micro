@@ -1,2 +1,6 @@
 node_modules
 npm-debug.log
+Dockerfile
+README.md
+# Ignore generated kubeconfig from google-github-actions/get-gke-credentials
+gha-kubeconfig-*
