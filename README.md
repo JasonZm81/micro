@@ -1,4 +1,4 @@
-# pacman----
+# pacman-----
 Pac-Man2
 
 ## Applications Architecture Components
