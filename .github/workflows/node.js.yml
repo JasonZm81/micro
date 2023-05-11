@@ -86,4 +86,6 @@ jobs:
     - name: Deploy
       run: |-
         kubectl apply -f mongo.yaml -f mongo-config.yaml -f mongo-secret.yaml -f webapp.yaml
+        kubectl get deployments 
+        kubectl rollout status deployment/webapp-deployment
         kubectl get services -o wide
