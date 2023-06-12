@@ -112,7 +112,7 @@ jobs:
 
     - name: Install chart
       run: |
-        helm install webapp ./webapp
+        helm upgrade webapp ./webapp
         helm install mongo ./mongo
 
     - name: Check Deployment
