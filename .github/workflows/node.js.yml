@@ -110,13 +110,10 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Install webapp chart
+    - name: Install chart
       run: |
         helm install webapp ./webapp
-
-    - name: Install mongo-chart
-      run: |
-        helm install mongo-chart ./mongo-chart
+        helm install mongo ./mongo
 
     - name: Check Deployment
       run: |-
