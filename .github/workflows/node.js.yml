@@ -83,10 +83,43 @@ jobs:
           push: true
           tags: jason81/demo-gke:l.1
 
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
+    # - name: 'Deploy webapp-chart'
+    #   uses: 'deliverybot/helm@v1'
+    #   with:
+    #     release: 'webapp'
+    #     namespace: 'default'
+    #     chart: './webapp'
+    #     values: |
+    #       name: foobar
+    #     value-files: >-
+    #       ["values.yaml"]
+
+    # - name: 'Deploy mongo-chart'
+    #   uses: 'deliverybot/helm@v1'
+    #   with:
+    #     release: 'mongo-chart'
+    #     namespace: 'default'
+    #     chart: './mongo-chart'
+    #     values: |
+    #       name: foobar
+    #     value-files: >-
+    #       ["values.yaml"]
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'latest'
+
+    - name: Install webapp chart
+      run: |
+        helm install webapp ./webapp
+
+    - name: Install mongo-chart
+      run: |
+        helm install mongo-chart ./mongo-chart
+
+    - name: Check Deployment
       run: |-
-        kubectl apply -f mongo.yaml -f mongo-config.yaml -f mongo-secret.yaml -f webapp.yaml
         kubectl get deployments 
         kubectl rollout status deployment/webapp-deployment
         kubectl get services -o wide
