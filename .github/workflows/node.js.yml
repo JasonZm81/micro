@@ -81,7 +81,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
           push: true
-          tags: jason81/demo-gke:l.0
+          tags: jason81/demo-gke:l.1
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
