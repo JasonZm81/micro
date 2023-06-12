@@ -1,6 +1,12 @@
 node_modules
 npm-debug.log
+<<<<<<< HEAD
 Dockerfile
 README.md
 # Ignore generated kubeconfig from google-github-actions/get-gke-credentials
 gha-kubeconfig-*
+=======
+# Ignore generated kubeconfig from google-github-actions/get-gke-credentials
+gha-kubeconfig-*
+Dockerfile
+>>>>>>> 670d2beea2654309c85a1be2541a4ef2d7a246b5
