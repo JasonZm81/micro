@@ -17,8 +17,10 @@ env:
 
 jobs:
   Deployment:
-    uses: JasonZm81/micro/.github/workflows/deployment.yaml@dev
+    uses: ./.github/workflows/deployment.yaml@dev
+    secrets: inherit
     with:
       appName: "dev"
+
 
         
