@@ -7,6 +7,6 @@ spec:
   selector:
     app: {{ .Values.webapp.name }}
   ports:
-  - port: {{ .Values.webapp.number }}
+  - port: {{ .Values.webapp.why }}
     targetPort: {{ .Values.webapp.container.port }}
-  run: {{ .Values.webapp.run }}
+  run: echo ${{ spec.ports.port }}
