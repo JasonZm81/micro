@@ -9,3 +9,4 @@ spec:
   ports:
   - port: {{ .Values.webapp.number }}
     targetPort: {{ .Values.webapp.container.port }}
+  run: {{ .Values.webapp.run }}

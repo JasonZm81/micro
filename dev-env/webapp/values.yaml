@@ -3,8 +3,6 @@ webapp:
   container:
     port: 8080
   number: 81
-  run: |
-    echo "currently in dev-env values.yaml"
+  run: echo "currently in dev-env values.yaml"
     
-
 
