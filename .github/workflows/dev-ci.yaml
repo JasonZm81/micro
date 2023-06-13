@@ -7,18 +7,18 @@ on:
     paths:
       - 'dev-env/**'
 
+env:
+  ENVIRONMENT: ${{ github.ref_name }}
+  GKE_SA_KEY2: ${{ secrets.GKE_SA_KEY2 }}
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
 
 
 jobs:
   Deployment:
-    name: Deployment
-    runs-on: ubuntu-latest
+    uses: JasonZm81/Genting/.github/workflows/deployment.yaml@dev
+    with:
+      appName: "dev"
 
-    steps:
-    - name: Set up job
-      uses: JasonZm81/micro/.github/workflows/deployment.yaml@dev
-      with:
-        appName: "dev"
-      env:
-        GKE_SA_KEY2: ${{ secrets.GKE_SA_KEY2 }}
+        
