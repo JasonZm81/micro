@@ -4,8 +4,8 @@ metadata:
   name: mongo-service
 spec:
   selector:
-    app: mongo
+    app: {{ .Values.mongo.name }}
   ports:
   - protocol: TCP
-    port: 27017
-    targetPort: 27017
+    port: {{ .Values.mongo.container.port }}
+    targetPort: {{ .Values.mongo.container.port }}

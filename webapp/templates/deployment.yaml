@@ -3,22 +3,22 @@ kind: Deployment
 metadata:
   name: webapp-deployment
   labels:
-    app: webapp
+    app: {{ .Values.webapp.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: {{ .Values.webapp.name }}
   template:
     metadata:
       labels:
-        app: webapp
+        app: {{ .Values.webapp.name }}
     spec:
       containers:
-      - name: webapp
+      - name: {{ .Values.webapp.name }}
         image: font/pacman-nodejs-app:latest
         ports:
-        - containerPort: 8080
+        - containerPort: {{ .Values.container.port }}
         env:
         - name: PORT
           value: "8080"
