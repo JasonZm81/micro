@@ -3,5 +3,3 @@ webapp:
   container:
     port: 8080
   number: 85
-
-

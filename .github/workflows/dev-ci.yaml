@@ -7,13 +7,6 @@ on:
     paths:
       - 'dev-env/**'
 
-env:
-  ENVIRONMENT: ${{ github.ref_name }}
-  GKE_SA_KEY2: ${{ secrets.GKE_SA_KEY2 }}
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
-
 
 jobs:
   Deployment:
