@@ -104,7 +104,7 @@ jobs:
     - name: Install chart
       run: |
         echo ${{ inputs.appName }}
-        helm upgrade webapp --values  ./${{ inputs.appName }}-env/webapp/values.yaml  
+        helm upgrade webapp ./${{ inputs.appName }}-env/webapp/values.yaml --values  
         helm upgrade webapp ./${{ inputs.appName }}-env/webapp
         helm upgrade mongo ./${{ inputs.appName }}-env/mongo
 
