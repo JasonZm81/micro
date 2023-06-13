@@ -12,6 +12,13 @@ on:
 
 jobs:
   Deployment:
+    name: Deployment
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up job
       uses: JasonZm81/micro/.github/workflows/deployment.yaml@dev
       with:
         appName: "dev"
+      env:
+        GKE_SA_KEY2: ${{ secrets.GKE_SA_KEY2 }}

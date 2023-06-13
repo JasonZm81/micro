@@ -47,13 +47,12 @@ jobs:
     # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
-      env:
-        GKE_SA_KEY: ${{ secrets.GKE_SA_KEY2 }}
+      
         
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+        credentials_json: '${{ env.GKE_SA_KEY2 }}'
         
     #get credentials
     - id: 'get-credentials'
@@ -62,6 +61,13 @@ jobs:
         cluster_name: 'hello-cluster'
         location: 'us-central1'
         project_id: 'logical-flame-386108'
+
+    # Get the GKE credentials so we can deploy to the cluster
+    #- uses: google-github-actions/get-gke-credentials@v1
+    #  with:
+    #    cluster_name: ${{ env.GKE_CLUSTER }}
+    #    location: ${{ env.GKE_ZONE }}
+    #    credentials: ${{ secrets.GKE_SA_KEY2 }}
         
    # Build & Push  Docker image
     - name: QEMU Setup
