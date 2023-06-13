@@ -1,0 +1,16 @@
+name: dev
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'dev-env/**'
+
+
+jobs:
+  Deployment:
+    uses: ./.github/workflows/deployment.yaml
+    secrets: inherit
+    with:
+      appName: "dev"

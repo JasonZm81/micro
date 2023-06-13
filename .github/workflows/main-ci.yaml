@@ -1,0 +1,16 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'main-env/**'
+
+
+jobs:
+  Deployment:
+    uses: ./.github/workflows/deployment.yaml
+    secrets: inherit
+    with:
+      appName: "main"

@@ -1,9 +1,11 @@
-name: Node.js CI
+name: Deployment
 
 on:
-  push:
-    branches: [ "main" ]
-
+  workflow_call:
+    inputs:
+      appName:
+        required: true
+        type: string
 
 jobs:
   #SonarCloud Scan
@@ -42,8 +44,7 @@ jobs:
         service_account_key: ${{ secrets.GKE_SA_KEY }}
         project_id: 'logical-flame-386108'
         
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
+    # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
         
@@ -102,8 +103,9 @@ jobs:
 
     - name: Install chart
       run: |
-        helm upgrade webapp ./webapp
-        helm upgrade mongo ./mongo
+        echo ${{ inputs.appName }}
+        helm upgrade webapp ./${{ inputs.appName }}-env/webapp
+        helm upgrade mongo ./${{ inputs.appName }}-env/mongo
 
     - name: Check Deployment
       run: |-
