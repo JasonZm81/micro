@@ -3,15 +3,14 @@ name: main
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - 'main-env/**'
 
 
-
-
 jobs:
   Deployment:
-      uses: JasonZm81/micro/.github/workflows/deployment.yaml@dev
-      with:
-        appName: "main"
+    uses: ./.github/workflows/deployment.yaml
+    secrets: inherit
+    with:
+      appName: "main"
