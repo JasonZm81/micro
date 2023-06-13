@@ -9,4 +9,3 @@ spec:
   ports:
   - port: {{ .Values.webapp.why }}
     targetPort: {{ .Values.webapp.container.port }}
-run: echo ${{ spec.ports.port }}
