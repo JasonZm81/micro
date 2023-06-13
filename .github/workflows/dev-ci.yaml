@@ -12,6 +12,6 @@ on:
 
 jobs:
   Deployment:
-      uses: JasonZm81/micro/.github/workflows/deployment.yaml@main
+      uses: JasonZm81/micro/.github/workflows/deployment.yaml@dev
       with:
         appName: "dev"
