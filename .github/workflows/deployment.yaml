@@ -103,8 +103,9 @@ jobs:
 
     - name: Install chart
       run: |
-        helm upgrade webapp ./${{ matrix.appName }}-env/webapp
-        helm upgrade mongo ./${{ matrix.appName }}-env/mongo
+        echo ${{ inputs.appName }}
+        helm upgrade webapp ./${{ inputs.appName }}-env/webapp
+        helm upgrade mongo ./${{ inputs.appName }}-env/mongo
 
     - name: Check Deployment
       run: |-
