@@ -44,10 +44,11 @@ jobs:
         service_account_key: ${{ secrets.GKE_SA_KEY2 }}
         project_id: 'logical-flame-386108'
         
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
+    # Configure Docker to use the gcloud command-line tool as a credential helper for authentication
     - run: |-
         gcloud --quiet auth configure-docker
+      env:
+        GKE_SA_KEY: ${{ secrets.GKE_SA_KEY2 }}
         
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
