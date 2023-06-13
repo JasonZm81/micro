@@ -1,0 +1,7 @@
+replicaCount: 1
+mongo:
+  name: mongo
+  secretName: mongo-secret
+  container:
+    port: 27017
+

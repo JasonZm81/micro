@@ -1,0 +1,17 @@
+name: dev
+
+on:
+  push:
+    branches:
+      - dev
+    paths:
+      - 'dev-env/**'
+
+
+
+
+jobs:
+  Deployment:
+      uses: JasonZm81/micro/.github/workflows/deployment.yaml@main
+      with:
+        appName: "dev"

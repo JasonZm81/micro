@@ -1,9 +1,11 @@
-name: Node.js CI
+name: Deployment
 
 on:
-  push:
-    branches: [ "main" ]
-
+  workflow_call:
+    inputs:
+      appName:
+        required: true
+        type: string
 
 jobs:
   #SonarCloud Scan
@@ -102,8 +104,8 @@ jobs:
 
     - name: Install chart
       run: |
-        helm upgrade webapp ./webapp
-        helm upgrade mongo ./mongo
+        helm upgrade webapp ./${{ matrix.appName }}-env/webapp
+        helm upgrade mongo ./${{ matrix.appName }}-env/mongo
 
     - name: Check Deployment
       run: |-
