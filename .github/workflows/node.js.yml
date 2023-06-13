@@ -94,16 +94,6 @@ jobs:
     #     value-files: >-
     #       ["values.yaml"]
 
-    # - name: 'Deploy mongo-chart'
-    #   uses: 'deliverybot/helm@v1'
-    #   with:
-    #     release: 'mongo-chart'
-    #     namespace: 'default'
-    #     chart: './mongo-chart'
-    #     values: |
-    #       name: foobar
-    #     value-files: >-
-    #       ["values.yaml"]
 
     - name: Set up Helm
       uses: azure/setup-helm@v1
