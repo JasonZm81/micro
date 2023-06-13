@@ -7,5 +7,5 @@ spec:
   selector:
     app: {{ .Values.webapp.name }}
   ports:
-  - port: {{ .Values.container.subport }}
+  - port: 80
     targetPort: {{ .Values.container.port }}
