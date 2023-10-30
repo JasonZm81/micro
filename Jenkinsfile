@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     
     stages {
         stage('Parallel Stage') {
@@ -33,6 +33,18 @@ pipeline {
         stage('Final Stage') {
             steps {
                 echo 'All parallel tasks are complete, moving to the final stage.'
+            }
+        }
+        stage('node') {
+            agent { docker "node"}
+            steps {
+                sh 'node --version'
+            }
+        }
+        stage('python') {
+            agent { docker "python"}
+            steps {
+                sh 'python3 --version'
             }
         }
     }
