@@ -35,7 +35,7 @@ pipeline {
                 echo 'All parallel tasks are complete, moving to the final stage.'
             }
         }
-
+    }
     
     post {
         always {
@@ -43,3 +43,4 @@ pipeline {
         }
     }
 }
+
