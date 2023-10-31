@@ -1,46 +1,29 @@
 pipeline {
-    agent any
-    
+    agent none
+
     stages {
-        stage('Parallel Stage') {
-            parallel {
-                stage('Task 1') {
-                    steps {
-                        echo 'Running Task 1'
-                    }
-                }
-                stage('Task 2') {
-                    steps {
-                        echo 'Running Task 2'
-                    }
-                }
-            }
-        }
-        stage('Another Parallel Stage') {
-            parallel {
-                stage('Task 3') {
-                    steps {
-                        echo 'Running Task 3'
-                    }
-                }
-                stage('Task 4') {
-                    steps {
-                        echo 'Running Task 4'
-                    }
-                }
-            }
-        }
-        stage('Final Stage') {
+        stage('node') {
+            agent any
             steps {
-                echo 'All parallel tasks are complete, moving to the final stage.'
+                script {
+                    def nodeImage = docker.image("node")
+                    nodeImage.inside {
+                        sh 'node --version'
+                    }
+                }
             }
         }
-    }
-    
-    post {
-        always {
-            echo 'Post action started'
+
+        stage('python') {
+            agent any
+            steps {
+                script {
+                    def pythonImage = docker.image("python")
+                    pythonImage.inside {
+                        sh 'python3 --version'
+                    }
+                }
+            }
         }
     }
 }
-
