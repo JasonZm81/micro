@@ -2,57 +2,41 @@ pipeline {
     agent any
     
     stages {
-        stage('Parallel Stage') {
-            parallel {
-                stage('Task 1') {
-                    steps {
-                        echo 'Running Task 1'
-                    }
-                }
-                stage('Task 2') {
-                    steps {
-                        echo 'Running Task 2'
-                    }
-                }
-            }
-        }
-        stage('Another Parallel Stage') {
-            parallel {
-                stage('Task 3') {
-                    steps {
-                        echo 'Running Task 3'
-                    }
-                }
-                stage('Task 4') {
-                    steps {
-                        echo 'Running Task 4'
-                    }
-                }
-            }
-        }
-        stage('Final Stage') {
+        stage('Checkout') {
             steps {
-                echo 'All parallel tasks are complete, moving to the final stage.'
+                // You can use the 'checkout' step to fetch your source code.
+                checkout scm
             }
         }
-        stage('node') {
-            agent { docker "node"}
+        
+        stage('Install and Use Docker') {
             steps {
-                sh 'node --version'
+                script {
+                    // Install and use Docker within a Docker agent.
+                    docker.image('docker').inside {
+                        // Your Docker-related commands go here.
+                        sh 'docker --version'
+                        // Run your Docker container or other Docker-related tasks.
+                    }
+                }
             }
         }
-        stage('python') {
-            agent { docker "python"}
+
+        stage('Install and Use Maven') {
             steps {
-                sh 'python3 --version'
+                // Install and use Maven.
+                tool name: 'Maven', type: 'hudson.tasks.Maven$MavenInstallation'
+                sh 'mvn --version'
+                // Run your Maven build commands.
             }
         }
-    }
-    
-    post {
-        always {
-            echo 'Post action started'
+
+        stage('Install and Use Python') {
+            steps {
+                // Install and use Python.
+                sh 'python --version'
+                // Run your Python scripts or commands.
+            }
         }
     }
 }
-
